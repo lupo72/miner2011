@@ -1,0 +1,89 @@
+#    def move_first_version(self):
+#        # depreceared arguments:  arena_bounds, bgpos, screen_dim
+#        screen_dim = LittleSprite.display.bgdim
+#        arena_bounds = [0,0,0,0] # LittleSprite.display.arena
+#
+##        for testing purpose only
+#        arena_bounds[0] = 60
+#        arena_bounds[1] = 60
+#        arena_bounds[2] = 360
+#        arena_bounds[3] = 360
+#
+#        screen_right = - screen_dim[2] + arena_bounds[2] + 16
+#        screen_bottom = - screen_dim[3] + arena_bounds[3]
+#
+#        if self.movement[0] < 0 and self.rect.left > arena_bounds[0] \
+#        or self.movement[0] > 0 and self.rect.left + self.rect.width < arena_bounds[2]:
+#            self.rect.move_ip( self.movement[0], 0 )
+#
+#        elif self.movement[0] > 0 and self.rect.left <=  arena_bounds[2]:
+#
+#            if LittleSprite.display.bgpos[0] > screen_right:
+#                LittleSprite.display.bgpos[0] -= 4
+#
+#        elif self.movement[0] < 0 and self.rect.left <= arena_bounds[0]:
+#
+#            if LittleSprite.display.bgpos[0] < 0:
+#                LittleSprite.display.bgpos[0] +=4
+#
+#        if self.movement[1] < 0 and self.rect.top > arena_bounds[1] \
+#        or self.movement[1] > 0 and self.rect.top + self.rect.height < arena_bounds[3]:
+#            self.rect.move_ip(0, self.movement[1])
+#
+#        elif self.movement[1] < 0 and self.rect.top <= arena_bounds[1]:
+#
+#            if LittleSprite.display.bgpos[1] < 0:
+#                LittleSprite.display.bgpos[1] += 4
+#
+#        elif self.movement[1] > 0 and self.rect.top <= arena_bounds[3]:
+#            if LittleSprite.display.bgpos[1] > screen_bottom:
+#                LittleSprite.display.bgpos[1] -= 4
+
+
+
+#    def centered_move_first_version(self):
+#        """Move Player Char only if on the edges of the *full* screen """
+#
+#        screen_right  = - LittleSprite.display.bgmax[0] + LittleSprite.display.arena[0]
+#        screen_bottom = - LittleSprite.display.bgmax[1] + LittleSprite.display.arena[1]
+#
+#        if self.movement[0] > 0 and LittleSprite.display.bgpos[0] > screen_right:
+#            LittleSprite.display.bgpos[0] -= self.speed
+#
+#        elif self.movement[0] < 0 and LittleSprite.display.bgpos[0] < 0:
+#            LittleSprite.display.bgpos[0] += self.speed
+#
+#        if self.movement[1] < 0 and LittleSprite.display.bgpos[1] < 0:
+#            LittleSprite.display.bgpos[1] += self.speed
+#
+#        elif self.movement[1] > 0 and LittleSprite.display.bgpos[1] > screen_bottom:
+#            LittleSprite.display.bgpos[1] -= self.speed
+
+
+    def centered_move(self):
+        """Move Player Char only if on the edges of the *full* screen """
+
+        screen_right  = - LittleSprite.display.bgmax[0] + LittleSprite.display.arena[0]
+        screen_bottom = - LittleSprite.display.bgmax[1] + LittleSprite.display.arena[1]
+
+        if self.movement[0] > 0 \
+        and LittleSprite.display.bgpos[0] > screen_right \
+        and self.rect.centerx == LittleSprite.display.arena[0]/2:
+            LittleSprite.display.bgpos[0] -= self.speed
+
+        elif self.movement[0] < 0 \
+        and LittleSprite.display.bgpos[0] < 0 \
+        and self.rect.centerx == LittleSprite.display.arena[0]/2:
+            LittleSprite.display.bgpos[0] += self.speed
+
+        elif self.movement[1] < 0 \
+        and LittleSprite.display.bgpos[1] < 0 \
+        and self.rect.centery == LittleSprite.display.arena[1]/2:
+            LittleSprite.display.bgpos[1] += self.speed
+
+        elif self.movement[1] > 0 \
+        and LittleSprite.display.bgpos[1] > screen_bottom \
+        and self.rect.centery == LittleSprite.display.arena[1]/2:
+            LittleSprite.display.bgpos[1] -= self.speed
+        else:
+            self.move_player()
